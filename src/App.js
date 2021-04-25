@@ -1,11 +1,13 @@
-
+import React from 'react';
+import {List} from './components/list/List';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Incio del proyecto</h1>
+    <div className="container">
+      <List/>
     </div>
   );
 }
 
 export default App;
+
