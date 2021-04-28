@@ -18,6 +18,10 @@ export class List extends React.Component {
                     <h2>Añadir Puesto</h2>
                     <label>Puesto</label>
                     <input type="text" name="puesto" className="cleanInput form-control" onChange={(e) => this.inputChange(e)}/>
+                    <label>Empresa</label>
+                    <input type="text" name="empresa" className="cleanInput form-control" onChange={(e) => this.inputChange(e)}/>
+                    <label>Ciudad</label>
+                    <input type="text" name="ciudad" className="cleanInput form-control" onChange={(e) => this.inputChange(e)}/>
                     <label>País</label> 
                     <input type="text" name="pais" className="cleanInput form-control" onChange={(e) => this.inputChange(e)}/>
                     <label>Tecnología</label> 
@@ -35,13 +39,17 @@ export class List extends React.Component {
             puestos : [
                  {
                      id: 1,
-                     puesto: 'Adminstrador de red', 
+                     puesto: 'Adminstrador de red',
+                     empresa: 'Internet para Todos',
+                     ciudad: 'La Rioja',
                      pais: 'Argentina',
                      tecnologia: 'Linux, Windows'
                  },
                  {
                      id: 2,
                      puesto: 'Ingeniero DevOps', 
+                     empresa: 'Andina', 
+                     ciudad: 'La Rioja',
                      pais: 'Argentina',
                      tecnologia: 'Javascript, Node, React'
                  }
@@ -49,6 +57,8 @@ export class List extends React.Component {
              puesto : {
                  id: 0,
                  puesto: '', 
+                 empresa: '', 
+                 ciudad: '',
                  pais: '',
                  tecnologia: ''
              }
@@ -56,6 +66,16 @@ export class List extends React.Component {
     }
 
     newPuesto = (puesto) =>{
+        
+        if (puesto.puesto === '' ||
+            puesto.empresa === '' ||
+            puesto.ciudad === '' || 
+            puesto.pais === '' || 
+            puesto.tecnologia === '') {
+            alert('Todos los campos son requeridos');
+            return;
+        }
+
         const idTem = this.state.puestos.length + 1;
         const temPuesto = {
             ...puesto, 
