@@ -64,7 +64,10 @@ export class List extends React.Component {
         this.setState({puestos: [...this.state.puestos, temPuesto] });
         this.cleanInput();
     }
-
+    deletePuesto = (idPusto) =>{
+        const puestoTem = this.state.puestos.filter(puesto => puesto.id != idPusto);
+        console.log(puestoTem); 
+    }
     inputChange(e){
         const name = e.target.name;
         const value = e.target.value;
