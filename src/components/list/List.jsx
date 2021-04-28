@@ -12,7 +12,7 @@ export class List extends React.Component {
             <>
                 <h1>Puestos de trabajo</h1>
                 <ul>
-                    <Item puestos={this.state.puestos}/>
+                    <Item puestos={this.state.puestos} deletePuesto= {this.deletePuesto}/>
                 </ul>
                 <div className="row">
                     <h2>Añadir Puesto</h2>
@@ -64,9 +64,9 @@ export class List extends React.Component {
         this.setState({puestos: [...this.state.puestos, temPuesto] });
         this.cleanInput();
     }
-    deletePuesto = (idPusto) =>{
-        const puestoTem = this.state.puestos.filter(puesto => puesto.id != idPusto);
-        console.log(puestoTem); 
+    deletePuesto = (idPuesto) =>{
+        const puestoTem = this.state.puestos.filter(puesto => puesto.id !== idPuesto);
+        this.setState({puestos: puestoTem})
     }
     inputChange(e){
         const name = e.target.name;
