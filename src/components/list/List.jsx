@@ -1,100 +1,77 @@
 import React from 'react'; 
-import {Item} from '../item/Item'
+
+
+import { FormPuestos } from '../form/FormPuestos';
+import { StorageData } from "../../controllers/storageData";
+import { Item } from './Item';
+
 
 export class List extends React.Component {
-   
     constructor(props){
         super(props);
-        this.createState();
+        this.state = {
+            puestos : []
+         }
+        
     }
+    componentDidMount(){
+        const storagePuestos = StorageData.getData('puestos');
+        if(storagePuestos != null){
+            this.setState({puestos: storagePuestos});
+        }
+      }
+    newPuesto = (puesto) => {
+        let temPuesto = {};
+        temPuesto = {
+                ...puesto,
+                codPuesto: this.key()
+            }
+        this.setState({ puestos: [ ...this.state.puestos, temPuesto ] });
+        console.log("se ejecuta el método", this.state.puestos);
+      };
+
+    deletePuesto = (codPuesto) =>{
+        const puestos = this.state.puestos.filter(puesto => puesto.codPuesto != codPuesto);
+        this.setState({puestos: puestos});
+        this.addStorage(puestos);
+      };
+   
+    addStorage = (puestos) => {
+        StorageData.addDataStorage('puestos', puestos);
+      }
+    key() {
+            var resultado           = '';
+            var characteres       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var characteresLength = characteres.length;
+            for ( var i = 0; i < 20; i++ ) {
+               resultado += characteres.charAt(Math.floor(Math.random() * characteresLength));
+            }
+            return resultado;
+         }
     render(){
         return (
-            <>
-                <h1>Puestos de trabajo</h1>
-                <ul>
-                    <Item puestos={this.state.puestos} deletePuesto= {this.deletePuesto}/>
-                </ul>
-                <div className="row">
-                    <h2>Añadir Puesto</h2>
-                    <label>Puesto</label>
-                    <input type="text" name="puesto" className="cleanInput form-control" onChange={(e) => this.inputChange(e)}/>
-                    <label>Empresa</label>
-                    <input type="text" name="empresa" className="cleanInput form-control" onChange={(e) => this.inputChange(e)}/>
-                    <label>Ciudad</label>
-                    <input type="text" name="ciudad" className="cleanInput form-control" onChange={(e) => this.inputChange(e)}/>
-                    <label>País</label> 
-                    <input type="text" name="pais" className="cleanInput form-control" onChange={(e) => this.inputChange(e)}/>
-                    <label>Tecnología</label> 
-                    <input type="text" name="tecnologia" className="cleanInput form-control" onChange={(e) => this.inputChange(e)}/>
-                    <button className="btn btn-primary col-3 mt-3" 
-                    onClick={ () => this.newPuesto(this.state.puesto)}
-                    >Nuevo</button>
-                </div>
+            <>       
+                         {
+                            this.state.puestos.length === 0 ? 
+                                <h4>Añadir puestos laborales</h4>
+                            :
+                            <div className="row">
+                                <Item puestos={this.state.puestos} deletePuesto= {this.deletePuesto}/>
+                                <div className="mt-4 text-end">
+                                <button onClick={() => this.addStorage(this.state.puestos)} className="btn btn-success">
+                                    Guardar 
+                                </button>
+                                </div>
+                            </div>
+                         }
+                          <FormPuestos newPuesto = {this.newPuesto} />
             </>
         );
     }
 
-    createState(){
-        this.state ={
-            puestos : [
-                 {
-                     id: 1,
-                     puesto: 'Adminstrador de red',
-                     empresa: 'Internet para Todos',
-                     ciudad: 'La Rioja',
-                     pais: 'Argentina',
-                     tecnologia: 'Linux, Windows'
-                 },
-                 {
-                     id: 2,
-                     puesto: 'Ingeniero DevOps', 
-                     empresa: 'Andina', 
-                     ciudad: 'La Rioja',
-                     pais: 'Argentina',
-                     tecnologia: 'Javascript, Node, React'
-                 }
-             ], 
-             puesto : {
-                 id: 0,
-                 puesto: '', 
-                 empresa: '', 
-                 ciudad: '',
-                 pais: '',
-                 tecnologia: ''
-             }
-         }
-    }
+  
 
-    newPuesto = (puesto) =>{
-        
-        if (puesto.puesto === '' ||
-            puesto.empresa === '' ||
-            puesto.ciudad === '' || 
-            puesto.pais === '' || 
-            puesto.tecnologia === '') {
-            alert('Todos los campos son requeridos');
-            return;
-        }
-
-        const idTem = this.state.puestos.length + 1;
-        const temPuesto = {
-            ...puesto, 
-            id: idTem
-        }
-        this.setState({puestos: [...this.state.puestos, temPuesto] });
-        this.cleanInput();
-    }
-    deletePuesto = (idPuesto) =>{
-        const puestoTem = this.state.puestos.filter(puesto => puesto.id !== idPuesto);
-        this.setState({puestos: puestoTem})
-    }
-    inputChange(e){
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({puesto: {...this.state.puesto,
-            [name] : value}});
-    }
-
+   
     cleanInput(){
        const input =  document.getElementsByClassName("cleanInput");
        for(let i= 0; i < input.length; i++){
