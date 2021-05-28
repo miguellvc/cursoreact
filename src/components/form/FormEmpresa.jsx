@@ -1,5 +1,5 @@
 import React from "react";
-import { StorageData } from "../../controllers/storageData";
+
 import { checkString } from "../../util/validator";
 
 import { getCiudades } from "../../controllers/ciudad";
@@ -16,29 +16,19 @@ export class FormEmpresa  extends React.Component {
     getCiudades()
       .then(resp =>{
         this.setState({ciudades : resp})
-        console.log(resp);
       })
-  }
-  /*
-  {
-  "name": "Facebook",
-  "placeId": 1
-  }
-  */ 
+  } 
   submitForm(e) {
     e.preventDefault();
-    // if (!checkString(this.state.codEmpresa) ||
-    //     !checkString(this.state.nombreEmpresa)||
-    //     !checkString(this.state.pais)||
-    //     !checkString(this.state.ciudad)) {
-    //     alert("Hay campos vacíos");
-    //     return;
-    // }
+    if (!checkString(this.state.placeId) ||
+        !checkString(this.state.name)) {
+        alert("Hay campos vacíos");
+        return;
+    }
     const newEmpresa = {
       placeId: this.state.placeId,
       name: this.state.name,
     }
-
     this.props.newEmpresa(newEmpresa);
   }
 
@@ -47,16 +37,6 @@ export class FormEmpresa  extends React.Component {
     this.setState({
 			[e.target.name]: e.target.value,
 		});
-    this.filtrarData(e);
-  }
-  filtrarData(e) {
-    if(e.target.name=== 'pais'){
-      let data = StorageData.getData('ciudades');
-      data = data.filter(items => items.pais === e.target.value);
-      this.setState({ciudades: [...data]});
-      console.log(data);
-      // console.log('datos del state', this.state.paises);
-    }
   }
   render() {
     return (
@@ -82,7 +62,7 @@ export class FormEmpresa  extends React.Component {
             className="form-select"
             onChange={(e) => this.inputChange(e)}
             value={this.state.placeId}>
-              <option value={JSON.stringify({})}>Select País</option>
+              <option value={JSON.stringify({})}>Select Ciudad</option>
               {
                 this.state.ciudades
                 .map(ciudad => <option key={ciudad.id} value={ciudad.id}>{ciudad.name}</option>)

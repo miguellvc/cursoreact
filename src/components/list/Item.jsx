@@ -31,26 +31,3 @@ export class Item extends React.Component {
     }
   
 }
-
-/*
-
-<li className="mt-3" key={puesto.id}>
-                            { `Puesto: ${puesto.puesto}, Empresa: ${puesto.empresa}, Ciudad: ${puesto.ciudad}, País: ${puesto.pais}, Tecnología: ${puesto.tecnologia}.` }
-                            <button onClick={() => deletePuesto(puesto.id)} className="btn-danger">X</button>
-                        </li>
-
-<div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-</div>
-
-
-
-
-
-*/

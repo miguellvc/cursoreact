@@ -2,13 +2,7 @@ import React from 'react';
 import { ComponentPais } from '../components/pais/ComponentPais' 
 
 export class Pais extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  componentDidMount(){
-    
-  }
-  
+
   render() {
     return (
       <>

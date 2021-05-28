@@ -11,7 +11,7 @@ export class ComponentPais extends React.Component {
     super(props);
     this.state = { 
       paises: [],
-      leyendoData : true
+      error: false
     };
   }
 
@@ -19,26 +19,25 @@ export class ComponentPais extends React.Component {
     this.mostrarPaises();
   }
 
-  mostrarPaises = async () => {
-    await getPaises()
+  mostrarPaises =  () => {
+     getPaises()
             .then(paises => {
               this.setState({paises : paises.data})
-              this.setState({leyendoData : false});
-              console.log('state de paises', this.state.paises);
             })
   }
 
-  newPais = async (pais) => {
-    await postPais(pais)
+  newPais =  (pais) => {
+     postPais(pais)
       .then(paises =>{
         this.setState({paises : [...this.state.paises, paises.data]})
-        console.log(paises);
       })
-    // this.setState({paises : [...this.state.paises, pais] });
+      .catch(() => {
+        this.setState({error: true})
+      })
   };
-  delPais = async (codPais) =>{
-    await deletePais(codPais)
-        .then(resp => {
+  delPais =  (codPais) =>{
+     deletePais(codPais)
+        .then(() => {
           this.mostrarPaises();
         })
   }
@@ -52,7 +51,7 @@ export class ComponentPais extends React.Component {
         <div className="col-sm-6">
           
           { 
-            this.state.leyendoData ? <h3>cargando data</h3> : 
+            this.state.error ? <h3>Error en la lectura de datos</h3> : 
             <table className="table table-hover">
               <thead>
                 <tr>

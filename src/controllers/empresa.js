@@ -15,7 +15,7 @@ const getEmpresas = () =>{
                                 name : item.name,
                                 namePlace : item.place.name,
                             }
-                            data.push(empresa);
+                        return  data.push(empresa);
                         })
                         res(data);         
                 })

@@ -1,5 +1,4 @@
 import React from "react";
-import { StorageData } from "../../controllers/storageData";
 import { checkString } from "../../util/validator";
 import { getPaises } from "../../controllers/pais";
 export class FormCiudad extends React.Component {
@@ -17,18 +16,17 @@ export class FormCiudad extends React.Component {
     getPaises()
       .then(resp => {
           this.setState({paises: resp.data});
-          console.log('paises desde ciudades', this.state.paises);
       })
   }
 
   submitForm(e) {
     e.preventDefault();
-    // if (!checkString(this.state.codCiudad) ||
-    //     !checkString(this.state.nombreCiudad)
-    //     ||!checkString(this.state.pais)) {
-    //   alert("Hay campos vacíos");
-    //   return;
-    // }
+    if (!checkString(this.state.codPais) ||
+        !checkString(this.state.nombreCiudad)
+        ) {
+      alert("Hay campos vacíos");
+      return;
+    }
 
     const newCiudad = {
       name: this.state.nombreCiudad,
@@ -85,19 +83,3 @@ export class FormCiudad extends React.Component {
     );
   }
 }
-
-
-/* <div className="input-group mb-3">
-					<label className="input-group-text" htmlFor="inputGroupSelect01">
-						Responsable
-					</label>
-					<select className="form-select" id="inputGroupSelect01" 
-						onChange={(e) => this.handleSelect(e)}
-						value={JSON.stringify(this.state.owner)}
-					>
-						<option value={JSON.stringify({})}>Select option</option>
-                        { this.state.owners.map((owner, index) => (
-                            <option key={index+1} value={JSON.stringify(owner)}>{owner.name}</option>
-                        ))}
-					</select>
-				</div> */

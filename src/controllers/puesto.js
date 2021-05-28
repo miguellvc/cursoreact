@@ -17,10 +17,12 @@ const getPuestos = () =>{
                             description : item.description,
                             organization : item.organization.name
                         }
-                        data.push(ciudad);
+                     return data.push(ciudad);
                     })
                  
                     res(data);         
+                }).catch(error => {
+                    req(error)
                 })
         })
 }

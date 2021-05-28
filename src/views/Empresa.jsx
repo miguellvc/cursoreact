@@ -2,10 +2,6 @@ import React from 'react';
 
 import { ComponentEmpresa } from '../components/empresa/ComponentEmpresa' 
 export class Empresa extends React.Component {
-    constructor(props){
-        super(props);
-    }
-
     render(){
         return(
             <>

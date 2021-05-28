@@ -23,7 +23,7 @@ const getCiudades = () =>{
                             countrieId : item.countrieId,
                             nameCountrie : item.countrie.name
                         }
-                        data.push(ciudad);
+                        return data.push(ciudad);
                     })
                  
                     res(data);         

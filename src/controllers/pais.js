@@ -3,8 +3,8 @@ import axios from 'axios';
 
 const url = 'https://api-fake-pilar-tecno.herokuapp.com/countries'
 
-const getPais = async (id) => {
-    return  await axios.get(`${url}/${id}`);
+const getPais =  (id) => {
+    return  axios.get(`${url}/${id}`);
 }
 
 const getPaises = () => {

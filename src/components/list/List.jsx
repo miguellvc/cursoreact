@@ -10,7 +10,8 @@ export class List extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            puestos : []
+            puestos : [],
+            error : false
          }
         
     }
@@ -22,6 +23,8 @@ export class List extends React.Component {
         getPuestos()
         .then(resp =>{
             this.setState({puestos: resp});
+        }).catch(() =>{
+            this.setState({error: true}); 
         });
     }
 
@@ -47,8 +50,8 @@ export class List extends React.Component {
         return (
             <>       
                          {
-                            this.state.puestos.length === 0 ? 
-                                <h4>Añadir puestos laborales</h4>
+                            this.state.error ? 
+                                <h4>Error lectura de datos</h4>
                             :
                             <div className="row">
                                 <Item puestos={this.state.puestos} quitarPuesto= {this.quitarPuesto}/>

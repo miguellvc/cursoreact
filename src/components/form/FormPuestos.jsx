@@ -17,26 +17,19 @@ export class FormPuestos extends React.Component {
     getEmpresas()
       .then(resp =>{
         this.setState({empresas: resp});
-        console.log('empresas desde form puestos', this.state.empresas);
       })
   }
 
   submitForm(e) {
     e.preventDefault();
-    // if (
-    //   !checkString(this.state.pais) ||
-    //   !checkString(this.state.ciudad) ||
-    //   !checkString(this.state.empresa) ||
-    //   !checkString(this.state.puesto) ||
-    //   !checkString(this.state.tecnologia)
-    // ) {
-    //   alert("Hay campos vacíos");
-    //   return;
-    // }
-
-      /* "position": "Desarrollador Backend",
-        "description": "Desarrollador Backend php",
-        "organizationId": 1*/ 
+    if (
+      !checkString(this.state.position) ||
+      !checkString(this.state.description) ||
+      !checkString(this.state.organizationId)
+    ) {
+      alert("Hay campos vacíos");
+      return;
+    }
     const newpuesto = {
       position: this.state.position,
       description: this.state.description,
@@ -57,7 +50,6 @@ export class FormPuestos extends React.Component {
         <div
           className="modal fade"
           id="exampleModal"
-          tabindex="-1"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
@@ -94,7 +86,7 @@ export class FormPuestos extends React.Component {
                     </select>
                   </div>
 
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <label>Puesto Laboral</label>
                     <input
                       type="text"
@@ -105,7 +97,7 @@ export class FormPuestos extends React.Component {
                     />
                   </div>
 
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <label>Descripción</label>
                     <input
                       type="text"

@@ -2,8 +2,6 @@ import React from "react";
 
 import { FormCiudad } from "../form/FormCiudad";
 
-import { StorageData } from "../../controllers/storageData";
-
 import { getCiudades, postCiudad, deleteCiudad } from '../../controllers/ciudad'; 
 
 export class ComponentCiudad extends React.Component {
@@ -23,34 +21,28 @@ export class ComponentCiudad extends React.Component {
     getCiudades()
         .then(ciudades =>{
           this.setState({ ciudades: ciudades })
-          console.log('el state de ciudades', this.state.ciudades);
         })
   }
 
   newCiudad = (ciudad) => {
-    // this.setState({ ciudades: [ ...this.state.ciudades, ciudad ] });
     postCiudad(ciudad)
-      .then(resp =>{
+      .then(() =>{
         this.mostrarCiudades();
       })
-    // console.log(this.state.ciudades);
   };
 
   eliminarCiudad = (codCiudad) =>{ 
     deleteCiudad(codCiudad)
-      .then(resp => {
+      .then(() => {
           this.mostrarCiudades();
       })
   }
-  addStorage = (ciudades) => {
-    StorageData.addDataStorage('ciudades', ciudades);
-  }
+ 
   render() {
     return (
       <>
         {
-          StorageData.getData('paises') === null ? <h3>Debe añadir al menos un país para poder ingresar ciudades</h3> 
-          : 
+         
           <div  className="row">
             <div className="col-sm-6">
           <table className="table table-hover">
