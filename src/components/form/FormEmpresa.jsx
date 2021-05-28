@@ -30,6 +30,7 @@ export class FormEmpresa  extends React.Component {
       name: this.state.name,
     }
     this.props.newEmpresa(newEmpresa);
+    // pruebas
   }
 
   inputChange(e){
